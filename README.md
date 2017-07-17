@@ -8,15 +8,15 @@
 
 **Courses:**
 
-- 01_The Data Scientist's Toolbox
-- 02_R Programming
-- 03_Getting and Cleaning Data
-- 04_Exploratory Data Analysis (coming soon)
-- 05_Reproducible Research (coming soon)
-- 06_Statistical Inference (coming soon)
-- 07_Regression Models (coming soon)
-- 08_Practical Machine Learning (coming soon)
-- 09_Developing Data Products (coming soon)
-- 10_Data Science Capstone (coming soon)
-
-
+<list>
+<li><b> 1. </b> The Data Scientist's Toolbox </li>
+<li><b> 2. </b> R Programming </li>
+<li><b> 3. </b> Getting and Cleaning Data </li>
+<li><b> 4. </b> Exploratory Data Analysis </li>
+<li><b> 5. </b> Reproducible Research (coming soon) </li>
+<li><b> 6. </b> Statistical Inference (coming soon) </li>
+<li><b> 7. </b> Regression Models (coming soon) </li>
+<li><b> 8. </b> Practical Machine Learning (coming soon) </li>
+<li><b> 9. </b> Developing Data Products (coming soon) </li>
+<li><b> 10. </b> Data Science Capstone (coming soon) </li>
+</list>

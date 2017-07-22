@@ -4,7 +4,9 @@
 
 ### Johns Hopkins University - Data Science Specialization
 
-[Data Science Specialization - Cousera](https://www.coursera.org/specializations/jhu-data-science)
+![JHU](Miscellaneous/JHU.png)
+
+[Data Science Specialization - Coursera](https://www.coursera.org/specializations/jhu-data-science)
 
 **Courses:**
 

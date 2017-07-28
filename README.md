@@ -15,7 +15,7 @@
 <li><b> 2. </b> R Programming </li>
 <li><b> 3. </b> Getting and Cleaning Data </li>
 <li><b> 4. </b> Exploratory Data Analysis </li>
-<li><b> 5. </b> Reproducible Research (coming soon) </li>
+<li><b> 5. </b> Reproducible Research </li>
 <li><b> 6. </b> Statistical Inference (coming soon) </li>
 <li><b> 7. </b> Regression Models (coming soon) </li>
 <li><b> 8. </b> Practical Machine Learning (coming soon) </li>

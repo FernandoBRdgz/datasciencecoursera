@@ -1,0 +1,156 @@
+---
+title: "Programming Assignment 1 Template"
+author: "Fernando Barranco R"
+date: "28 de julio de 2017"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+### Assignment
+
+This assignment will be described in multiple parts. You will need to write a report that answers the questions detailed below. Ultimately, you will need to complete the entire assignment in a single R markdown document that can be processed by knitr and be transformed into an HTML file.
+  
+Throughout your report make sure you always include the code that you used to generate the output you present. When writing code chunks in the R markdown document, always use echo = TRUE so that someone else will be able to read the code. This assignment will be evaluated via peer assessment so it is essential that your peer evaluators be able to review the code for your analysis.
+  
+For the plotting aspects of this assignment, feel free to use any plotting system in R (i.e., base, lattice, ggplot2)
+  
+Fork/clone the GitHub repository created for this assignment. You will submit this assignment by pushing your completed files into your forked repository on GitHub. The assignment submission will consist of the URL to your GitHub repository and the SHA-1 commit ID for your repository state.
+  
+#### Loading and preprocessing the data
+
+Show any code that is needed to:  
+
+```{r}
+# Set working directory
+setwd("C:/Users/FernandoBarranco/Desktop")
+
+# Download and unzip the dataset (in case you don't have it)
+# url <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
+# download.file(url = url, destfile = "C:/Users/FernandoBarranco/Desktop/activity.zip")
+# unzip(""C:/Users/FernandoBarranco/Desktop/activity.zip")
+```
+
+Load the data (i.e. read.csv())  
+Process/transform the data (if necessary) into a format suitable for your analysis
+  
+```{r}
+# install.packages("data.table")
+library(data.table)
+activity <- fread("C:/Users/FernandoBarranco/Desktop/activity.csv", na.strings = "NA")
+```
+  
+#### What is mean total number of steps taken per day?
+  
+For this part of the assignment, you can ignore the missing values in the dataset.
+  
+Calculate the total number of steps taken per day  
+Make a histogram of the total number of steps taken each day  
+Calculate and report the mean and median of the total number of steps taken per day  
+  
+```{r}
+x <- aggregate(steps ~ date, activity, sum)
+hist(x$steps, xlab = "Number of Steps", main = "Total number of steps taken each day",
+     col = "steelblue", breaks = 10)
+
+mean.unimputed <- mean(x$steps, na.rm = T)
+mean.unimputed
+median.unimputed <- median(x$steps, na.rm = T)
+median.unimputed
+```
+  
+#### What is the average daily activity pattern?
+  
+Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
+    
+```{r}
+t <- aggregate(steps ~ interval, activity, mean)
+with(t, plot(interval, steps, type = "l", xlab = "Interval", ylab = "Steps", 
+             main = "Average number of steps taken across all days", col = "steelblue", lwd = 2))
+```
+  
+Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
+    
+```{r}
+t[which(t$steps == max(t$steps)), "interval"]
+```
+  
+#### Imputing missing values
+  
+Note that there are a number of days/intervals where there are missing values (coded as NA). The presence of missing days may introduce bias into some calculations or summaries of the data.
+  
+Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
+
+```{r}
+lapply(lapply(activity, is.na), sum)
+```
+
+Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
+  
+Create a new dataset that is equal to the original dataset but with the missing data filled in.
+  
+```{r}
+# source("https://bioconductor.org/biocLite.R")
+# biocLite("impute")
+library(impute)
+activity.imputed <- copy(activity)
+activity.imputed <- as.data.frame(impute.knn(as.matrix(activity.imputed[ , .(steps, interval)]))$data)
+activity.imputed <- cbind(activity.imputed, date = activity$date)
+head(activity.imputed)
+```
+  
+Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
+
+```{r}
+h <- aggregate(steps ~ date, activity.imputed, sum)
+hist(h$steps, xlab = "Number of Steps", main = "Total number of steps taken each day (after imputation)",
+     col = "steelblue", breaks = 10)
+```
+
+```{r}
+mean.imputed <- mean(h$steps)
+mean.imputed
+median.imputed <- median(h$steps)
+median.imputed
+
+# Diferences before and after imputation
+mean.unimputed - mean.imputed
+median.unimputed - median.imputed
+```
+  
+#### Are there differences in activity patterns between weekdays and weekends?
+  
+For this part the weekdays() function may be of some help here. Use the dataset with the filled-in missing values for this part.
+    
+Create a new factor variable in the dataset with two levels - "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
+  
+```{r}
+# install.packages("lubridate")
+library(lubridate)
+dates <- as.Date(activity.imputed$date)
+weekdays <- wday(dates, label = T)
+activity.imputed <- cbind(activity.imputed, weekdays)
+
+weekday <- subset(activity.imputed, weekdays != "Sat" & weekdays != "Sun")
+head(weekday)
+
+weekend <- subset(activity.imputed, weekdays == "Sat" | weekdays == "Sun")
+head(weekend)
+```
+  
+Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). 
+  
+```{r}
+wdy <- aggregate(steps ~ interval, weekday, mean)
+wnd <- aggregate(steps ~ interval, weekend, mean)
+
+par(mfrow = c(1,2), mar = c(4,4,2,1), oma = c(0,0,2,0))
+with(wdy, plot(interval, steps, type = "l", xlab = "Interval", ylab = "Steps", 
+             main = "Weekday", col = "steelblue", lwd = 2))
+with(wnd, plot(interval, steps, type = "l", xlab = "Interval", ylab = "Steps", 
+             main = "Weekend", col = "steelblue", lwd = 2))
+mtext("Average number of steps taken per 5-minute interval", outer = T)
+```
+
+
+

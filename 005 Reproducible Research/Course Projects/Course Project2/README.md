@@ -1,9 +1,10 @@
 # 005 Reproducible Research
 
-## Author: Fernando Barranco Rodríguez
+## Author: Fernando Barranco RodrÃ­guez
 
 #### Course Project 2
-================
+
+You can find my publication on [rpubs.com/FernandoBRdgz](http://rpubs.com/FernandoBRdgz/ReproducibleResearch_CourseProject2)
 
 The most severe weather events across the US from 1950 to 2011
 --------------------------------------------------------------

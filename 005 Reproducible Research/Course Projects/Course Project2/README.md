@@ -1,4 +1,8 @@
-Course Project 2
+# 005 Reproducible Research
+
+## Author: Fernando Barranco Rodríguez
+
+#### Course Project 2
 ================
 
 The most severe weather events across the US from 1950 to 2011
@@ -29,7 +33,7 @@ Set working directory
 
     setwd("C:/Users/FernandoBarranco/Desktop")
 
-### Data Processing
+#### Data Processing
 
 Download the data from the following url (if necessary)
 
@@ -57,7 +61,7 @@ Read the data into R
     Read 87.9% of 967216 rows
     Read 902297 rows and 37 (of 37) columns from 0.523 GB file in 00:00:09
 
-### Subset, transform and clean the data
+#### Subset, transform and clean the data
 
 Rename variables
 
@@ -100,7 +104,7 @@ Removing observations with no fatalities nor injuries
     ## 5 1951
     ## 6 1951
 
-### Data wrangling and feature engineering
+#### Data wrangling and feature engineering
 
 Sum up fatalities and injuries by event type
 
@@ -237,7 +241,7 @@ Keep extreme values that causes the highest damages
 *Note: The 'storm\_data\_economy' dataset will help us answer question
 2*
 
-### Results
+#### Results
 
     # install.packages("ggplot2")
     library(ggplot2)

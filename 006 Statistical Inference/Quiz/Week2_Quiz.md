@@ -16,7 +16,7 @@
 pnorm(q = 70, mean = 80, sd = 10, lower.tail = TRUE)
 ```
 ```{r}
-[1] 0.1586553
+#> [1] 0.1586553
 ```
 
 * 16%
@@ -27,7 +27,7 @@ pnorm(q = 70, mean = 80, sd = 10, lower.tail = TRUE)
 qnorm(p = .95, mean = 1100, sd = 75, lower.tail = TRUE)
 ```
 ```{r}
-[1] 1223.364
+#> [1] 1223.364
 ```
 
 * approximately 1223
@@ -38,7 +38,7 @@ qnorm(p = .95, mean = 1100, sd = 75, lower.tail = TRUE)
 qnorm(p = 0.95, mean = 1100, sd = 75/sqrt(100), lower.tail = TRUE)
 ```
 ```{r}
-[1] 1112.336
+#> [1] 1112.336
 ```
 
 * approximately 1112 cc
@@ -49,7 +49,7 @@ qnorm(p = 0.95, mean = 1100, sd = 75/sqrt(100), lower.tail = TRUE)
 pbinom(q = 3, size = 5, prob = 0.5, lower.tail = FALSE)
 ```
 ```{r}
-[1] 0.1875
+#> [1] 0.1875
 ```
 
 * 19%
@@ -60,7 +60,7 @@ pbinom(q = 3, size = 5, prob = 0.5, lower.tail = FALSE)
 pnorm(q = 16, mean = 15, sd = 10/sqrt(100)) - pnorm(q = 14, mean = 15, sd = 10/sqrt(100))
 ```
 ```{r}
-[1] 0.6826895
+#> [1] 0.6826895
 ```
 
 * 68%
@@ -72,7 +72,7 @@ set.seed(12345)
 mean(runif(n = 1000, min = 0, max = 1))
 ```
 ```{r}
-[1] 0.5140477
+#> [1] 0.5140477
 ```
 
 * 0.5
@@ -83,7 +83,7 @@ mean(runif(n = 1000, min = 0, max = 1))
 ppois(q = 10, lambda = 5*3, lower.tail = TRUE)
 ```
 ```{r}
-[1] 0.1184644
+#> [1] 0.1184644
 ```
 
 * 0.12

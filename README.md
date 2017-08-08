@@ -16,7 +16,7 @@
 <li><b> 3. </b> Getting and Cleaning Data </li>
 <li><b> 4. </b> Exploratory Data Analysis </li>
 <li><b> 5. </b> Reproducible Research </li>
-<li><b> 6. </b> Statistical Inference (coming soon) </li>
+<li><b> 6. </b> Statistical Inference </li>
 <li><b> 7. </b> Regression Models (coming soon) </li>
 <li><b> 8. </b> Practical Machine Learning (coming soon) </li>
 <li><b> 9. </b> Developing Data Products (coming soon) </li>

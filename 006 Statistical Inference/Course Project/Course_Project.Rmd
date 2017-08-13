@@ -1,0 +1,188 @@
+---
+title: "Statistical Techniques for Analizing Data in R"
+author: "Fernando Barranco R"
+date: "August 11, 2017"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+## Part 1: Simulation
+
+Comparition between the exponential distribution in R and the Central Limit Theorem.
+The exponential distribution has two parameters: 'lambda': the rate parameter and 'n': the number of observations. The mean of an exponential distribution is 1/lambda, the standard deviation is also 1/lambda. 
+
+  
+```{r}
+# Number of observations
+n <- 40
+
+# Mean and Std Deviation 'lambda'
+lambda <- 0.2
+
+# Number of simulations
+sim <- 1000
+
+# Defining an empty vector
+vect <- as.numeric()
+
+# Looping a 1000 simulations
+for (i in 1:sim){
+        vect <- c(vect, mean(rexp(n, lambda)) ) }
+
+# Creating a plotting environment
+par(mfrow = c(1,2))
+
+# Pseudo random number, for reproducibilty sake
+set.seed(12345)
+
+# First plot (Exponenctial Distribution)
+hist(rexp(sim, lambda), col = "blue", xlab = "1000 Simulations",
+     main = "Exponential Distribution", freq = FALSE)
+abline(v= mean(rexp(sim, lambda)), col = "green", lwd = 2)
+legend(x = "topright", legend = "Exponential Mean", col = "green", lty = 1,
+       lwd = 3, cex = 0.5)
+
+# Second plot (Distribution of Averages)
+hist(vect, col = "blue", main = "Distribution of Averages",
+     breaks = 10, xlab = "n = 40  lambda = 0.2", freq = FALSE)
+abline(v = mean(vect), col = "orange", lwd = 2)
+abline(v = 1/lambda, col = "green", lwd = 2)
+abline(v = sd(vect)*c(-1,1)+mean(vect), col = "tomato", lwd = 2)
+abline(v = (1/lambda)/sqrt(n)*c(-1,1)+(1/lambda), col = "yellow", lwd = 2)
+curve(dnorm(x, mean = mean(vect), sd = sd(vect)), col = "darkblue", lwd = 2, add = TRUE)
+legend(x = "topright", lty = 1, cex = 0.3, lwd = 3,
+       col = c("green", "orange", "tomato", "yellow", "darkblue"),
+       legend = c("Theoretical Mean", "Sample Mean", "Theoretical StdDev",
+                  "Sample StdDev", "Normal Dist"))
+```
+
+* Show the sample mean and compare it to the theoretical mean of the distribution.
+
+```{r}
+sample.mean <- mean(vect)
+sample.mean
+theoretical.mean <- 1/lambda
+theoretical.mean
+```
+
+* Show how variable the sample is (via variance) and compare it to the theoretical variance of the distribution.
+
+```{r}
+sample.variance <- sd(vect)^2
+sample.variance
+theoretical.variance <- ((1/lambda)/sqrt(n))^2
+theoretical.variance
+```
+
+* Show that the distribution is approximately normal.
+
+```{r}
+par(mfrow = c(1,1))
+qqnorm(vect)
+qqline(vect, col = "tomato", lwd = 3)
+# Interpretation: If the Sample quantiles provide from a Normal Distribution, then it 
+#                 should be the same as the Theoretical quantiles matching an Identity Line. 
+```
+
+## Part 2: Inferential Data Analysis
+
+Analyze the ToothGrowth data in the R datasets package.
+
+"The Effect of Vitamin C on Tooth Growth in Guinea Pigs"
+
+*Description:* The response is the length of odontoblasts (cells responsible for tooth growth) in 60 guinea pigs. Each animal received one of three dose levels of vitamin C (0.5, 1, and 2 mg/day) by one of two delivery methods, (orange juice or ascorbic acid (a form of vitamin C and coded as VC).
+  
+A data frame with 60 observations on 3 variables.
+
+| Variable      | Type           | Description                   |
+| ------------- | -------------- | ----------------------------- |
+| **len**       | numeric	 | Tooth length                  |
+| **supp**	| factor 	 | Supplement type (VC or OJ).   |
+| **dose**	| numeric	 | Dose in milligrams/day        |
+
+* Load the ToothGrowth data and perform some basic exploratory data analyses
+
+```{r}
+Tooth <- datasets::ToothGrowth
+Tooth
+```
+  
+```{r}
+library(ggplot2)
+
+ggplot(Tooth) +
+        geom_bar(aes(len)) +
+        facet_grid(dose ~ supp) +
+        theme_set(theme_bw()) + 
+        labs(x = "Lenght of odontoblasts", y = "Count",
+             title = "Supplement type vs Dose (milligrams/day)")
+
+ggplot(Tooth, aes(x = supp, y = len)) +
+        geom_boxplot() +
+        theme_set(theme_bw()) + 
+        labs(x = "Supplement type", y = "Lenght of odontoblasts",
+             title = "Supplementation lenght")
+
+ggplot(Tooth, aes(x = factor(dose), y = len)) +
+        geom_boxplot() +
+        theme_set(theme_bw()) + 
+        labs(x = "Dose (milligrams/day)", y = "Lenght of odontoblasts",
+             title = "Dose lenght")
+```
+
+* Provide a basic summary of the data.
+
+```{r}
+library(dplyr)
+
+Tooth.total <- Tooth %>% group_by(supp, dose) %>%
+        summarise(total_len = sum(len))
+Tooth.total
+```
+
+* Use confidence intervals and/or hypothesis tests to compare tooth growth by supp and dose. (Only use the techniques from class, even if there's other approaches worth considering)
+
+We want to know if tooth growth is statistally different by supplement (increase/decrease on average) for each dose, for that purpose we create three different 95% confidence intervals for the mean diference (Orange Juice - Ascorbic Acid). 
+
+```{r}
+# Growth by dose of 0.5 milligrams per day
+test1 <- Tooth %>% filter(dose == 0.5) %>% print
+n_x <- 10 ; n_y <- 10
+x_bar <- mean(test1$len[1:10]); y_bar <- mean(test1$len[11:20])
+sd_x <- sd(test1$len[1:10]); sd_y <- sd(test1$len[11:20])
+alpha <- 0.05
+S_p <- sqrt( ((n_x-1)*sd_x^2 + (n_y-1)*sd_y^2) / (n_x+n_y-2) )
+t_s <- qt(1-alpha/2, n_x+n_y-2)
+round( (y_bar - x_bar) + c(-1, 1) * t_s * S_p * (sqrt(1/n_x + 1/n_y)), 3)
+
+# Growth by dose of 1.0 milligrams per day
+test2 <- Tooth %>% filter(dose == 1) %>% print
+n_x <- 10 ; n_y <- 10
+x_bar <- mean(test2$len[1:10]); y_bar <- mean(test2$len[11:20])
+sd_x <- sd(test2$len[1:10]); sd_y <- sd(test2$len[11:20])
+alpha <- 0.05
+S_p <- sqrt( ((n_x-1)*sd_x^2 + (n_y-1)*sd_y^2) / (n_x+n_y-2) )
+t_s <- qt(1-alpha/2, n_x+n_y-2)
+round( (y_bar - x_bar) + c(-1, 1) * t_s * S_p * (sqrt(1/n_x + 1/n_y)), 3)
+
+# Growth by dose of 2.0 milligrams per day
+test3 <- Tooth %>% filter(dose == 2) %>% print
+n_x <- 10 ; n_y <- 10
+x_bar <- mean(test3$len[1:10]); y_bar <- mean(test3$len[11:20])
+sd_x <- sd(test3$len[1:10]); sd_y <- sd(test3$len[11:20])
+alpha <- 0.05
+S_p <- sqrt( ((n_x-1)*sd_x^2 + (n_y-1)*sd_y^2) / (n_x+n_y-2) )
+t_s <- qt(1-alpha/2, n_x+n_y-2)
+round( (y_bar - x_bar) + c(-1, 1) * t_s * S_p * (sqrt(1/n_x + 1/n_y)), 3)
+```
+
+* State your conclusions and the assumptions needed for your conclusions.
+
+|  Test | Dose | Confidence Interval | Interpretation |
+| ----- | ---- | ------------------- | -------------- |
+|   1   |  0.5 | 1.77 - 8.73         | For a dose level of 0.5 mg/day of vitamine c, the orange juice produces a bigger growth on the length of odontoblasts than ascorbic acid. |
+|   2   |  1.0 | 2.841 - 9.019       | For a dose level of 1.0 mg/day of vitamine c, the orange juice produces a bigger growth on the length of odontoblasts than ascorbic acid. |
+|   3   |  2.0 | -3.723 - 3.563      | For a dose level of 2.0 mg/day of vitamine c, the orange juice produces the same growth on the length of odontoblasts (on average)than ascorbic acid. |
+
+

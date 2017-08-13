@@ -1,3 +1,9 @@
+# 006 Statistical Inference
+
+## Author: Fernando Barranco Rodríguez
+
+#### Statistical Inference Course Project 
+
 Part 1: Simulation
 ------------------
 

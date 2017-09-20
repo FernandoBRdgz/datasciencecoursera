@@ -1,4 +1,4 @@
-﻿# 007 Regression Models
+# 007 Regression Models
 
 ## Week 1 Quiz
 
@@ -17,7 +17,7 @@ And weights given by
     w <- c(2, 1, 3, 1)
 
 Give the value of *μ* that minimizes the least squares equation
-$\\sum\_{i=1}^{n}w\_i(x\_i-\\mu)^2$
+$\sum_{i=1}^{n}w_i*(x_i-\mu)^2$
 
 -   0.300
 
@@ -34,7 +34,7 @@ Answer: 0.1471
 
     ## [1] 0.1471429
 
-1.  Consider the following data set
+2.  Consider the following data set
 
 <!-- -->
 
@@ -67,7 +67,7 @@ Answer: 0.8263
     ##      x  
     ## 0.8263
 
-Do `data(mtcars)` from the datasets package and fit the regression model
+3. Do `data(mtcars)` from the datasets package and fit the regression model
 with mpg as the outcome and weight as the predictor. Give the slope
 coefficient.
 
@@ -88,7 +88,7 @@ Answer: -5.344
     ##        wt 
     ## -5.344472
 
-1.  Consider data with an outcome (Y) and a predictor (X). The standard
+4.  Consider data with an outcome (Y) and a predictor (X). The standard
     deviation of the predictor is one half that of the outcome. The
     correlation between the two variables is .5. What value would the
     slope coefficient for the regression model with Y as the outcome and
@@ -102,8 +102,6 @@ Answer: -5.344
 
 -   0.25
 
-$\\beta\_1 = cov(Y,X)\*\\frac{sd(Y)}{sd(X)}$
-
 Answer: 1
 
     cor <- 1/2; sd_y <- 1; sd_x <- 1/2
@@ -112,7 +110,7 @@ Answer: 1
 
     ## [1] 1
 
-1.  Students were given two hard tests and scores were normalized to
+5.  Students were given two hard tests and scores were normalized to
     have empirical mean 0 and variance 1. The correlation between the
     scores on the two tests was 0.4. What would be the expected score on
     Quiz 2 for a student who had a normalized score of 1.5 on Quiz 1?
@@ -131,7 +129,7 @@ Answer: 0.6
 
     ## [1] 0.6
 
-1.  Consider the data given by the following
+6.  Consider the data given by the following
 
 <!-- -->
 
@@ -156,7 +154,7 @@ Answer: -0.9719
 
     ## [1] -0.9718658
 
-1.  Consider the following data set (used above as well). What is the
+7.  Consider the following data set (used above as well). What is the
     intercept for fitting the model with x as the predictor and y as the
     outcome?
 
@@ -181,7 +179,7 @@ Answer: 1.567
     ## (Intercept) 
     ##    1.567461
 
-1.  You know that both the predictor and response have mean 0. What can
+8.  You know that both the predictor and response have mean 0. What can
     be said about the intercept when you fit a linear regression?
 
 -   It must be identically 0.
@@ -194,7 +192,7 @@ Answer: 1.567
 
 Answer: It must be identically 0.
 
-1.  Consider the data given by
+9.  Consider the data given by
 
 <!-- -->
 
@@ -217,19 +215,19 @@ Answer: 0.573
 
     ## [1] 0.573
 
-1.  Let the slope having fit Y as the outcome and X as the predictor be
+10.  Let the slope having fit Y as the outcome and X as the predictor be
     denoted as *β*<sub>1</sub>. Let the slope from fitting X as the
     outcome and Y as the predictor be denoted as *γ*<sub>1</sub>.
     Suppose that you divide *β*<sub>1</sub> by *γ*<sub>1</sub>; in other
     words consider *β*<sub>1</sub>/*γ*<sub>1</sub>. What is this ratio
     always equal to?
 
--   *C**o**r*(*Y*, *X*)
+-   Cor(Y, X)
 
--   2*S**D*(*Y*)/*S**D*(*X*)
+-   2SD(Y)/SD(X)
 
--   *V**a**r*(*Y*)/*V**a**r*(*X*)
+-   Var(Y)/Var(X)
 
 -   1
 
-Answer: $\\frac{Var(Y)}{Var(X)}$
+Answer: Var(Y)/Var(X)

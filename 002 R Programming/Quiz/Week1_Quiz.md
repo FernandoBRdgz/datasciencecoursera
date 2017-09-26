@@ -34,7 +34,13 @@ Answer: The University of Auckland
 
 * The freedom to improve the program, and release your improvements to the public, so that the whole community benefits.
 
-Answer: The freedom to sell the software for any price, The freedom to restrict access to the source code for the software, The freedom to prevent users from using the software for undesirable purposes.
+Answers:
+
+The freedom to sell the software for any price
+
+The freedom to restrict access to the source code for the software
+
+The freedom to prevent users from using the software for undesirable purposes.
 
 **3. In R the following are all atomic data types EXCEPT: (Select all that apply)**
 
@@ -178,7 +184,7 @@ Answer: an integer vector with the values 3, 5, 5, 7.
 
 * x[x < 6] <- 0
 
-Answers: x[x <= 5] <- 0; x[x %in% 1:5] <- 0; x[x < 6] <- 0
+Answers: `x[x <= 5] <- 0`; `x[x %in% 1:5] <- 0`; `x[x < 6] <- 0`
 
 **11. Use the Week 1 Quiz Data Set to answer questions 11-20. In the dataset provided for this Quiz, what are the column names of the dataset?**
 
@@ -196,41 +202,31 @@ Answer: Ozone, Solar.R, Wind, Temp, Month, Day
 
 ```
 #   Ozone Solar.R Wind Temp Month Day
-
 # 1     7      NA  6.9   74     5  11
-
 # 2    35     274 10.3   82     7  17
 ```
 ```
 #   Ozone Solar.R Wind Temp Month Day
-
 # 1     9      24 10.9   71     9  14
-
 # 2    18     131  8.0   76     9  29
 ```
 ```
 #   Ozone Solar.R Wind Temp Month Day
-# 
-1    18     224 13.8   67     9  17
-
+# 1    18     224 13.8   67     9  17
 # 2    NA     258  9.7   81     7  22
 ```
 ```
 #   Ozone Solar.R Wind Temp Month Day
-# 
-1    41     190  7.4   67     5   1
-# 
-2    36     118  8.0   72     5   2
+# 1    41     190  7.4   67     5   1
+# 2    36     118  8.0   72     5   2
 ```
 
 Answer: 
 
 ```
 #   Ozone Solar.R Wind Temp Month Day
-# 
-1    41     190  7.4   67     5   1
-# 
-2    36     118  8.0   72     5   2
+# 1    41     190  7.4   67     5   1
+# 2    36     118  8.0   72     5   2
 ```
 
 **13. How many observations (i.e. rows) are in this data frame?**
@@ -249,41 +245,31 @@ Answer: 153
 
 ```
 #     Ozone Solar.R Wind Temp Month Day
-
 # 152    31     244 10.9   78     8  19
-
 # 153    29     127  9.7   82     6   7
 ```
 ```
 #     Ozone Solar.R Wind Temp Month Day
-# 
-152    11      44  9.7   62     5  20
-# 
-153   108     223  8.0   85     7  25
+# 152    11      44  9.7   62     5  20
+# 153   108     223  8.0   85     7  25
 ```
 ```
 #     Ozone Solar.R Wind Temp Month Day
-
 # 152    18     131  8.0   76     9  29
-# 
-153    20     223 11.5   68     9  30
+# 153    20     223 11.5   68     9  30
 ```
 ```
 #     Ozone Solar.R Wind Temp Month Day
-# 
-152    34     307 12.0   66     5  17
-# 
-153    13      27 10.3   76     9  18
+# 152    34     307 12.0   66     5  17
+# 153    13      27 10.3   76     9  18
 ```
 
 Answer: 
 
 ```
 #     Ozone Solar.R Wind Temp Month Day
-
 # 152    18     131  8.0   76     9  29
-# 
-153    20     223 11.5   68     9  30
+# 153    20     223 11.5   68     9  30
 ```
 
 **15. What is the value of Ozone in the 47th row?**
